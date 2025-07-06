@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografik: Transformasi Pembelajaran Era Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            height: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .kpi-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        .kpi-icon {
+            font-size: 3rem;
+            line-height: 1;
+            color: #10B981;
+        }
+        .kpi-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #1F2937;
+            margin-top: 0.5rem;
+        }
+        .kpi-label {
+            margin-top: 0.25rem;
+            color: #6B7280;
+            font-size: 1rem;
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            color: #9CA3AF;
+            margin: 1rem 0;
+        }
+        .tab-btn {
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .tab-btn.active {
+            border-color: #10B981;
+            color: #059669;
+            font-weight: 600;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .article-container {
+            max-width: 8.27in;
+            margin: auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+        .article-content {
+            font-family: 'Lora', serif;
+            line-height: 1.7;
+            color: #374151;
+        }
+        .article-content h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #111827;
+        }
+        .article-content h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.25rem;
+        }
+         .article-content h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .article-content p, .article-content li {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        .article-content ul {
+            list-style-position: inside;
+            padding-left: 0.5rem;
+        }
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        .article-content th, .article-content td {
+            border: 1px solid #d1d5db;
+            padding: 8px;
+            text-align: left;
+        }
+        .article-content th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white shadow-md sticky top-0 z-20">
+        <div class="container mx-auto px-6 py-4 text-center">
+            <h1 class="text-xl md:text-2xl font-bold text-gray-900 leading-tight">Mengubah Cara Murid Belajar : <br class="md:hidden">Satu Keperluan di Era Digital</h1>
+            <p class="text-base italic text-gray-500 mt-1">"Change your words, change your world"</p>
+        </div>
+    </header>
+
+    <nav class="bg-white shadow-sm sticky top-[104px] md:top-[84px] z-10">
+        <div class="container mx-auto px-6">
+            <div class="md:hidden text-right">
+                <button id="mobile-menu-btn" class="p-4 -mr-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+            <div id="nav-links" class="hidden md:flex md:items-center md:justify-center border-b border-gray-200 -mb-px md:space-x-8">
+                <button data-tab="digital-reality" class="tab-btn active w-full text-left md:w-auto border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 font-medium text-sm">Realiti Digital</button>
+                <button data-tab="paradigm-shift" class="tab-btn w-full text-left md:w-auto border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 font-medium text-sm">Anjakan Pedagogi</button>
+                <button data-tab="tech-catalyst" class="tab-btn w-full text-left md:w-auto border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 font-medium text-sm">Pemangkin Teknologi</button>
+                <button data-tab="hybrid-model" class="tab-btn w-full text-left md:w-auto border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 font-medium text-sm">Model Hibrid</button>
+                <button data-tab="strategy" class="tab-btn w-full text-left md:w-auto border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 font-medium text-sm">Strategi Hadapan</button>
+                <button data-tab="inspirasi" class="tab-btn w-full text-left md:w-auto border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 font-medium text-sm">Inspirasi</button>
+                <button data-tab="artikel" class="tab-btn w-full text-left md:w-auto border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 font-medium text-sm">Artikel</button>
+                <button data-tab="rujukan" class="tab-btn w-full text-left md:w-auto border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 font-medium text-sm">Rujukan</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-8 md:py-12">
+        
+        <section id="digital-reality" class="tab-pane">
+            <h2 class="text-3xl font-bold text-center mb-2 text-emerald-600">Bahagian 1 : Realiti Digital Murid Malaysia</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">Murid hari ini hidup dalam dunia hiper-terhubung. Data menunjukkan penggunaan peranti digital bukan lagi pilihan, tetapi sebahagian besar daripada kehidupan harian mereka. Ini adalah konteks baharu yang perlu difahami oleh para pendidik.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
+                <div class="kpi-card"><div class="kpi-icon">🌐</div><div class="kpi-value">97.4%</div><div class="kpi-label">Kadar Penembusan Internet di Malaysia (2024)</div></div>
+                <div class="kpi-card"><div class="kpi-icon">⏰</div><div class="kpi-value">8j 17m</div><div class="kpi-label">Purata Masa Harian Dalam Talian</div></div>
+                <div class="kpi-card md:col-span-2 lg:col-span-1"><div class="kpi-icon">📱</div><div class="kpi-value">55.8%</div><div class="kpi-label">Masa Dalam Talian Diluangkan Melalui Telefon Bimbit</div></div>
+                <div class="bg-white rounded-lg shadow-md p-6 md:col-span-2"><h3 class="text-xl font-bold text-center mb-4">Wabak Kebosanan di Bilik Darjah?</h3><p class="text-gray-600 mb-6 text-center">Pendedahan digital yang tinggi melatih otak murid untuk memproses maklumat secara pantas, visual, dan tidak linear. Apabila dipersembahkan dengan kaedah pengajaran tradisional yang pasif dan linear, wujud satu 'jurang kognitif' yang membawa kepada hilang tumpuan dan penglibatan yang rendah.</p><div class="flex flex-col md:flex-row justify-around items-center text-center"><div class="p-4 rounded-lg w-full md:w-2/5"><h4 class="font-bold text-lg mb-2 text-rose-500">Dunia Digital Murid</h4><p class="text-sm">Interaktif & Visual</p><p class="text-sm">Kandungan Pantas</p><p class="text-sm">Tidak Linear</p></div><div class="flow-arrow">&#10230;</div><div class="p-4 rounded-lg w-full md:w-2/5"><h4 class="font-bold text-lg mb-2 text-sky-500">Bilik Darjah Tradisional</h4><p class="text-sm">Pasif & Teks</p><p class="text-sm">Syarahan Panjang</p><p class="text-sm">Linear</p></div></div></div>
+            </div>
+        </section>
+        
+        <section id="paradigm-shift" class="tab-pane hidden">
+            <h2 class="text-3xl font-bold text-center mb-2 text-emerald-600">Bahagian 2 : Anjakan Paradigma Pedagogi</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">Sebagai tindak balas, pendidikan memerlukan anjakan falsafah daripada berpusatkan guru kepada berpusatkan murid. Pembelajaran Berasaskan Projek (PBL) muncul sebagai salah satu kaedah praktikal yang paling berkesan untuk merealisasikan anjakan ini.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"><div class="bg-white rounded-lg shadow-md p-6"><h3 class="text-xl font-bold text-center mb-4">Impak Positif Pembelajaran Berasaskan Projek (PBL)</h3><p class="text-center text-gray-600 mb-4 text-sm">Kajian oleh Naik & Girase (2021) menunjukkan PBL meningkatkan kemahiran kritikal abad ke-21 secara signifikan.</p><div class="chart-container h-80 md:h-96"><canvas id="pblImpactChart"></canvas></div></div><div class="bg-white rounded-lg shadow-md p-6 text-center"><h3 class="text-xl font-bold mb-6">Evolusi Peranan Guru</h3><div class="flex items-center justify-center space-x-4"><div class="p-4 bg-rose-100 text-rose-800 rounded-lg"><div class="text-4xl">🧑‍🏫</div><div class="font-bold mt-2">"Sage on the Stage"</div><div class="text-sm">(Penyampai Maklumat)</div></div><div class="text-4xl font-bold text-gray-400">&#10145;</div><div class="p-4 bg-emerald-100 text-emerald-800 rounded-lg"><div class="text-4xl">🤝</div><div class="font-bold mt-2">"Guide on the Side"</div><div class="text-sm">(Pembimbing & Fasilitator)</div></div></div><p class="mt-6 text-gray-600">Perubahan ini menuntut guru untuk menjadi arkitek persekitaran pembelajaran, bukan lagi sekadar sumber utama pengetahuan. Ia adalah peralihan daripada mengajar kepada membolehkan pembelajaran berlaku.</p></div></div>
+        </section>
+
+        <section id="tech-catalyst" class="tab-pane hidden">
+            <h2 class="text-3xl font-bold text-center mb-2 text-emerald-600">Bahagian 3 : Teknologi Sebagai Pemangkin</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">Teknologi bukan lagi alat bantu, tetapi pemangkin yang boleh merealisasikan pedagogi berpusatkan murid pada skala yang luas. Kuncinya ialah pendekatan "pedagogy-pull" - pilih teknologi untuk mencapai objektif pembelajaran, bukan sebaliknya.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"><div class="bg-white rounded-lg shadow-md p-6 text-center"><div class="text-5xl mb-4">🧠</div><h3 class="text-xl font-bold mb-2">Kecerdasan Buatan (AI)</h3><p class="text-gray-600">Membolehkan pembelajaran peribadi (personalised learning) dengan menyesuaikan kandungan dan kesukaran secara dinamik untuk setiap murid.</p></div><div class="bg-white rounded-lg shadow-md p-6 text-center"><div class="text-5xl mb-4">👓</div><h3 class="text-xl font-bold mb-2">AR & VR</h3><p class="text-gray-600">Mengubah pembelajaran abstrak kepada pengalaman imersif dan interaktif, membolehkan murid "mengalami" konsep pelajaran.</p></div><div class="bg-white rounded-lg shadow-md p-6 text-center"><div class="text-5xl mb-4">🎮</div><h3 class="text-xl font-bold mb-2">Gamifikasi</h3><p class="text-gray-600">Menggunakan elemen permainan seperti mata dan lencana untuk meningkatkan motivasi dan penglibatan murid secara intrinsik.</p></div></div>
+        </section>
+
+        <section id="hybrid-model" class="tab-pane hidden">
+            <h2 class="text-3xl font-bold text-center mb-2 text-emerald-600">Bahagian 4 : Model Pelaksanaan Hibrid</h2>
+             <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">Model Bilik Darjah Terbalik (Flipped Classroom) adalah strategi praktikal untuk mengintegrasikan dunia fizikal dan digital, mengoptimumkan masa bersemuka yang berharga untuk aktiviti pembelajaran aktif.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"><div class="bg-white rounded-lg shadow-md p-6"><h3 class="text-xl font-bold text-center mb-4">Aliran Bilik Darjah Terbalik</h3><div class="space-y-4"><div class="p-4 bg-sky-100 rounded-lg text-center"><div class="font-bold text-sky-800">1. DI RUMAH (Sebelum Kelas)</div><p class="text-sky-700">Murid menonton video syarahan pendek yang disediakan oleh guru.</p></div><div class="text-center text-2xl text-gray-400">⬇️</div><div class="p-4 bg-emerald-100 rounded-lg text-center"><div class="font-bold text-emerald-800">2. DI KELAS (Semasa Bersemuka)</div><p class="text-emerald-700">Masa kelas digunakan sepenuhnya untuk perbincangan, aktiviti kolaboratif, dan projek (PBL) dengan bimbingan guru.</p></div></div></div><div class="bg-white rounded-lg shadow-md p-6"><h3 class="text-xl font-bold text-center mb-4">Persepsi Pelajar Terhadap Model Ini</h3><p class="text-center text-gray-600 mb-4 text-sm">Kajian kes di Malaysia menunjukkan penerimaan yang amat positif, dengan majoriti pelajar merasakan kelas menjadi lebih interaktif.</p><div class="chart-container h-80 md:h-96"><canvas id="flippedClassroomPerceptionChart"></canvas></div></div></div>
+        </section>
+
+        <section id="strategy" class="tab-pane hidden">
+            <h2 class="text-3xl font-bold text-center mb-2 text-emerald-600">Bahagian 5 : Strategi Masa Hadapan</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">Transformasi yang berjaya memerlukan tindakan bersepadu pada pelbagai peringkat. Seorang guru pakar boleh menjadi pemangkin perubahan dengan memimpin usaha di bilik darjah, sekolah, dan komuniti.</p>
+            <div class="space-y-8"><div class="bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row items-center gap-6"><div class="text-6xl text-center md:text-left">🏫</div><div><h3 class="text-xl font-bold text-emerald-700">Peringkat Bilik Darjah</h3><p class="text-gray-600 mt-1">Reka bentuk semula pengajaran menggunakan PBL, integrasikan teknologi secara bermakna, dan amalkan pentaksiran autentik yang menilai kemahiran, bukan sekadar hafalan.</p></div></div><div class="bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row items-center gap-6"><div class="text-6xl text-center md:text-left">🧑‍🤝‍🧑</div><div><h3 class="text-xl font-bold text-emerald-700">Peringkat Sekolah</h3><p class="text-gray-600 mt-1">Pimpin pembangunan profesional melalui program mentor-mentee dan wujudkan budaya perkongsian amalan terbaik (PLC) untuk membina kapasiti seluruh sekolah.</p></div></div><div class="bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row items-center gap-6"><div class="text-6xl text-center md:text-left">🏘️</div><div><h3 class="text-xl font-bold text-emerald-700">Peringkat Komuniti</h3><p class="text-gray-600 mt-1">Libatkan ibu bapa dengan mendidik mereka tentang pedagogi baharu. Bekerjasama dengan PIBG untuk merapatkan jurang digital dan advokasi untuk sokongan pentadbiran.</p></div></div></div>
+        </section>
+
+        <section id="inspirasi" class="tab-pane hidden">
+            <h2 class="text-3xl font-bold text-center mb-2 text-emerald-600">Inspirasi : The Power of Words</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">Video ini meneroka bagaimana perkataan yang kita gunakan membentuk realiti kita dan memberi inspirasi kepada perubahan yang bermakna.</p>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/Hzgzim5m7oU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <p class="text-center font-bold mt-6 text-gray-700">"Keberuntungan adalah tempat bertemunya peluang dengan persiapan"</p>
+            </div>
+        </section>
+
+        <section id="artikel" class="tab-pane hidden">
+            <h2 class="text-3xl font-bold text-center mb-8 text-emerald-600">Artikel Penuh</h2>
+            <div class="article-container">
+                <div class="article-content">
+                    <h2>Ubah.</h2>
+                    <h3>Bahagian 1: Landskap Pembelajaran Era Digital: Analisis Konteks Murid Malaysia</h3>
+                    <p>Untuk mengubah cara murid belajar, adalah mustahak untuk terlebih dahulu memahami dunia di mana mereka hidup. Era semasa ditakrifkan oleh tahap ketersambungan digital yang belum pernah terjadi sebelumnya, yang secara asasnya membentuk semula bagaimana generasi muda berinteraksi, berfikir, dan memproses maklumat. Analisis konteks ini bukan sekadar latar belakang, tetapi merupakan justifikasi utama mengapa anjakan paradigma dalam pendidikan bukan lagi satu pilihan, tetapi satu keperluan mendesak.</p>
+                    <h4>1.1 Realiti Hiper-Terhubung (Hyper-connectivity) Belia Malaysia</h4>
+                    <p>Data empirikal terkini melukiskan gambaran yang jelas: murid Malaysia hari ini adalah warganegara digital sejati. Laporan "Digital 2024: Malaysia" mendedahkan bahawa pada awal tahun 2024, kadar penembusan internet di negara ini telah mencapai 97.4%, merangkumi 33.59 juta pengguna. Angka ini, yang disokong oleh data Suruhanjaya Komunikasi dan Multimedia Malaysia (SKMM) pada tahun 2023 yang menunjukkan 96% isi rumah mempunyai akses internet, mengesahkan bahawa akses digital telah beralih daripada satu keistimewaan kepada satu norma kehidupan.</p>
+                    <p>Lebih penting lagi ialah intensiti penggunaan ini. Rata-rata rakyat Malaysia menghabiskan masa selama 8 jam dan 17 minit setiap hari dalam talian, satu peningkatan yang signifikan dari tahun sebelumnya. Daripada jumlah ini, sebahagian besar masa—4 jam dan 37 minit—dihabiskan melalui peranti yang paling peribadi dan sentiasa ada: telefon bimbit. Golongan belia, khususnya yang berumur antara 15 hingga 24 tahun, secara konsisten direkodkan sebagai kumpulan pengguna internet yang paling aktif dan tinggi peratusannya. Ini bermakna, sebelum dan selepas waktu sekolah, dunia murid didominasi oleh persekitaran digital yang dinamik, interaktif, dan dipacu oleh rangsangan visual.</p>
+                    <table>
+                        <thead><tr><th>Metrik Utama Penggunaan Digital</th><th>Statistik (2023-2024)</th><th>Sumber</th></tr></thead>
+                        <tbody>
+                            <tr><td>Kadar Penembusan Internet</td><td>97.4%</td><td>[1, 2]</td></tr>
+                            <tr><td>Bilangan Pengguna Media Sosial</td><td>28.68 juta</td><td>[1]</td></tr>
+                            <tr><td>Purata Masa Harian Dalam Talian</td><td>8 jam 17 minit</td><td>[2]</td></tr>
+                            <tr><td>Peratusan Masa Dalam Talian Melalui Telefon Bimbit</td><td>55.8%</td><td>[2]</td></tr>
+                            <tr><td>Kumpulan Umur Pengguna Tertinggi</td><td>Belia (15-24 tahun)</td><td>[4]</td></tr>
+                        </tbody>
+                    </table>
+                    <h4>1.2 Implikasi Kognitif dan Tingkah Laku dari Pendedahan Digital</h4>
+                    <p>Pendedahan yang berterusan dan mendalam terhadap persekitaran digital ini bukan sekadar mengubah tabiat; ia membentuk semula laluan kognitif. Otak manusia, terutamanya pada usia muda, mempunyai keplastikan yang tinggi dan beradaptasi dengan rangsangan yang kerap diterima. Persekitaran dalam talian yang dipenuhi dengan kandungan video pendek, suapan media sosial yang tidak berkesudahan, dan interaksi segera telah melatih otak murid untuk memberi keutamaan kepada pemprosesan maklumat yang pantas, tidak linear, dan berasaskan visual.</p>
+                    <p>Fenomena ini mewujudkan apa yang boleh dianggap sebagai "jurang kognitif" yang ketara antara dunia digital murid dan persekitaran bilik darjah tradisional. Kaedah pengajaran konvensional, yang sering disifatkan sebagai "talk and chalk", menuntut kemahiran kognitif yang berbeza: perhatian yang berpanjangan, pemprosesan maklumat secara linear, dan penyerapan melalui medium auditori (syarahan) dan teks. Apabila murid yang otaknya telah terbiasa dengan rangsangan dinamik dipaksa untuk berfungsi dalam mod pasif dan linear untuk tempoh yang lama, hasilnya adalah kebosanan, hilang tumpuan, dan penglibatan yang rendah. Isu seperti penyalahgunaan gajet di dalam kelas tidak seharusnya dilihat semata-mata sebagai masalah disiplin, tetapi sebagai simptom kepada ketidakpadanan yang mendalam antara cara murid terbiasa belajar di luar sekolah dan cara mereka diharapkan untuk belajar di dalam sekolah.</p>
+                    <p>Kewujudan ekosistem pembelajaran tidak formal yang sangat berkuasa di luar bilik darjah ini membawa implikasi yang lebih luas. Jika sistem pendidikan formal gagal beradaptasi dan terus beroperasi dalam paradigma yang semakin asing bagi murid, ia berisiko kehilangan relevansinya. Jurang antara pembelajaran yang berlaku di sekolah dan pembelajaran kendiri yang berlaku melalui gajet akan terus melebar, yang akhirnya akan mengurangkan nilai pendidikan formal di mata murid. Oleh itu, misi untuk "mengubah cara murid belajar" bukan lagi sekadar satu usaha penambahbaikan pedagogi, tetapi ia adalah satu strategi penting untuk memastikan kelestarian dan kerelevanan sistem pendidikan itu sendiri dalam abad ke-21.</p>
+                    <h3>Bahagian 2: Anjakan Paradigma Pedagogi: Daripada Pengajaran Berpusatkan Guru kepada Pembelajaran Berpusatkan Murid</h3>
+                    <p>Sebagai tindak balas kepada realiti digital murid yang telah dikenal pasti, anjakan daripada model pengajaran tradisional adalah satu kemestian. Transformasi ini berakar umbi dalam peralihan falsafah daripada pengajaran berpusatkan guru kepada pembelajaran berpusatkan murid (PBM). Anjakan ini bukan sekadar perubahan dalam aktiviti, tetapi satu penjajaran semula amalan bilik darjah dengan pemahaman saintifik yang mendalam tentang bagaimana manusia belajar dengan paling berkesan, disokong oleh teori-teori pembelajaran yang mantap.</p>
+                    <h4>2.1 Pembelajaran Berpusatkan Murid (PBM) sebagai Teras Transformasi</h4>
+                    <p>PBM mewakili satu perubahan fundamental dalam dinamik kuasa dan peranan di dalam bilik darjah. la mentakrifkan semula peranan murid daripada penerima maklumat yang pasif kepada pembina pengetahuan yang aktif. Dalam model tradisional yang berpusatkan guru, pendidik bertindak sebagai sumber utama dan pengawal maklumat, menyampaikan pengetahuan secara sehala kepada pelajar yang mendengar dan mencatat. Sebaliknya, PBM memberi tumpuan kepada perkembangan pelajar sebagai individu dengan memberi mereka pilihan, autonomi, dan suara dalam proses pembelajaran mereka sendiri. Salah satu kekuatan utama PBM ialah keupayaannya untuk menyesuaikan pembelajaran dengan kepelbagaian murid yang wujud dalam mana-mana bilik darjah. Dengan mengambil kira perbezaan dari segi minat, kebolehan sedia ada, gaya pembelajaran, dan keperluan individu, PBM menjadikan pengalaman pendidikan lebih bermakna, relevan, dan menyeronokkan untuk setiap murid.</p>
+                    <h4>2.2 Pembelajaran Berasaskan Projek (PBL) sebagai Manifestasi PBM</h4>
+                    <p>Jika PBM adalah falsafahnya, maka Pembelajaran Berasaskan Projek (PBL) adalah salah satu manifestasi praktikalnya yang paling berkesan. PBL ialah satu kaedah pengajaran di mana murid terlibat secara mendalam dalam proses menyelesaikan masalah dunia sebenar atau menjawab soalan yang kompleks melalui satu projek jangka panjang, yang memuncak dengan penghasilan produk atau pembentangan awam.</p>
+                    <p>PBL secara semula jadi memupuk pembelajaran kendiri, penerokaan, dan kolaborasi, di mana pelajar tidak lagi bergantung semata-mata kepada guru untuk mendapatkan jawapan. Sebaliknya, mereka belajar untuk mencari maklumat, menganalisis data, dan bekerjasama dalam kumpulan untuk mencapai matlamat bersama. Proses ini secara langsung membina kemahiran insaniah yang kritikal untuk abad ke-21 dan alam pekerjaan, seperti komunikasi, kerja berpasukan, kepimpinan, dan pemikiran kritis. Keberkesanan PBL disokong oleh penyelidikan empirikal. Sebagai contoh, satu kajian oleh Naik & Girase (2021) mendapati bahawa pelaksanaan PBL berjaya meningkatkan keupayaan murid untuk menyelesaikan masalah dunia sebenar (sebanyak 78%), kemahiran bekerjasama dalam kumpulan (56%), dan kemahiran komunikasi (48%). Kerangka kerja PBL juga disokong oleh pemikir pendidikan seperti Moursund (2003), yang menggambarkannya sebagai strategi di mana pelajar membangunkan dan mempersembahkan produk, dan Chin (2007), yang menekankan peranan penting soalan pemacu (driving question) yang berkualiti dalam memandu keseluruhan projek.</p>
+                    <h4>2.3 Landasan Teori Pembelajaran Moden</h4>
+                    <p>Keberkesanan PBM dan PBL bukanlah satu kebetulan; ia berakar umbi dalam teori-teori pembelajaran yang telah lama diterima. Dengan memahami landasan teori ini, pendidik boleh melaksanakan pedagogi ini bukan sebagai satu "trend", tetapi sebagai satu amalan berasaskan bukti.</p>
+                    <ul>
+                        <li><strong>Konstruktivisme:</strong> Teori ini, yang dipelopori oleh tokoh-tokoh seperti Jean Piaget dan Lev Vygotsky, berpendapat bahawa pembelajaran adalah satu proses aktif di mana individu membina pemahaman dan pengetahuan mereka sendiri melalui pengalaman dan interaksi dengan persekitaran. PBL adalah aplikasi langsung teori Konstruktivisme. Murid tidak diberitahu tentang fakta; sebaliknya, mereka "membina" pemahaman mereka dengan "melakukan" projek, menguji hipotesis, dan membuat kesimpulan sendiri.</li>
+                        <li><strong>Kognitivisme:</strong> Teori ini memberi tumpuan kepada proses mental dalaman seperti ingatan, penyelesaian masalah, dan pemikiran. PBL merangsang proses kognitif tahap tinggi yang melampaui hafalan. Murid perlu menganalisis maklumat daripada pelbagai sumber, mensintesis idea-idea yang berbeza untuk mencipta sesuatu yang baharu (produk projek), dan menilai keberkesanan penyelesaian mereka.</li>
+                        <li><strong>Teori Pembelajaran Sosial:</strong> Konsep kolaborasi yang menjadi teras dalam PBL selari dengan teori pembelajaran sosial, terutamanya kerja Albert Bandura, yang menekankan bahawa pembelajaran boleh berlaku melalui pemerhatian, peniruan, dan interaksi dengan orang lain dalam konteks sosial.</li>
+                    </ul>
+                    <p>Peralihan kepada PBM dan PBL menuntut satu transformasi dalam identiti profesional guru—daripada "sage on the stage" (pemberi maklumat) kepada "guide on the side" (pembimbing) atau lebih tepat lagi, "arkitek persekitaran pembelajaran". Perubahan ini adalah mencabar dan memerlukan sokongan institusi yang kuat. Kegagalan untuk mengiktiraf dan menyokong evolusi peranan ini sering menjadi punca utama mengapa banyak inisiatif inovasi pedagogi gagal bertahan. Pembangunan profesional yang berkesan mesti memberi tumpuan bukan sahaja kepada aspek teknikal pelaksanaan PBL, tetapi juga kepada aspek psikologi dalam membentuk identiti baharu seorang pendidik di era digital.</p>
+                    <h3>Bahagian 3: Teknologi Sebagai Pemangkin Transformasi: Kajian Ilmiah dan Aplikasi Praktikal</h3>
+                    <p>Setelah menetapkan landasan pedagogi yang berpusatkan murid, langkah seterusnya adalah untuk meneroka bagaimana teknologi boleh berfungsi sebagai pemangkin yang kuat untuk merealisasikan visi ini. Integrasi teknologi dalam pendidikan, apabila dilakukan dengan betul, bukan lagi sekadar penggunaan alat bantu mengajar, tetapi satu disiplin reka bentuk pengajaran yang sistematik. la bukan mengenai penggunaan teknologi demi teknologi, tetapi mengenai pemilihan alat yang tepat untuk memperkaya dan membolehkan amalan pedagogi yang berkesan.</p>
+                    <h4>3.1 Kecerdasan Buatan (Al) untuk Pembelajaran Peribadi (Personalised Learning)</h4>
+                    <p>Kecerdasan Buatan (Al) menawarkan potensi yang sangat besar untuk merealisasikan salah satu matlamat utama PBM: pembelajaran peribadi pada skala yang luas. Sistem pembelajaran berasaskan Al boleh menganalisis data prestasi setiap murid secara individu dan secara dinamik menyesuaikan bahan ajar, tahap kesukaran, dan juga kaedah penyampaian yang paling sesuai dengan gaya dan kadar pembelajaran mereka. Seperti yang ditekankan oleh sarjana seperti Apriadi & Sihotang (2023), Al berupaya mentransformasi pendidikan dengan menjadikan pembelajaran lebih interaktif dan menarik.</p>
+                    <p>Dari segi aplikasi praktikal, Al boleh mengautomasikan tugas-tugas pentadbiran yang memakan masa guru, seperti menanda kertas jawapan objektif atau menyemak keaslian tugasan melalui platform seperti Google Forms dan Turnitin. Ini membebaskan masa guru yang berharga untuk difokuskan kepada interaksi yang lebih bermakna dengan murid. Selain itu, analitik pembelajaran yang dipacu oleh Al boleh memantau kemajuan murid secara masa nyata, mengenal pasti pelajar yang berisiko ketinggalan, dan membolehkan guru melakukan intervensi yang tepat pada masanya.</p>
+                    <h4>3.2 Realiti Terimbuh (AR) & Realiti Maya (VR) untuk Pembelajaran Imersif</h4>
+                    <p>Realiti Terimbuh (Augmented Reality, AR) dan Realiti Maya (Virtual Reality, VR) mempunyai keupayaan unik untuk mengubah pembelajaran daripada aktiviti pasif dan abstrak kepada satu pengalaman yang imersif, konkrit, dan interaktif. Teknologi ini membolehkan murid "mengalami" konsep pembelajaran dan bukannya hanya membaca tentangnya. Sebagai contoh, aplikasi seperti Google Expeditions AR membolehkan murid meneroka model 3D haiwan prasejarah, struktur molekul, atau artifak bersejarah seolah-olah objek tersebut berada di dalam bilik darjah mereka. Platform VR seperti Titans of Space pula boleh membawa murid dalam lawatan maya ke sistem suria, manakala Unimersive membolehkan mereka melawat tapak-tapak warisan dunia seperti Parthenon di Greece tanpa meninggalkan sekolah. Teknologi-teknologi ini amat berkesan untuk subjek-subjek yang melibatkan visualisasi ruang (seperti Geometri), konsep abstrak (seperti Kimia dan Biologi), atau lawatan ke tempat yang mustahil (seperti Sejarah dan Astronomi). la menyokong PBL dengan menyediakan persekitaran simulasi yang realistik untuk penerokaan dan penyiasatan.</p>
+                    <h4>3.3 Gamifikasi dan Pembelajaran Berasaskan Permainan (GBL) untuk Motivasi</h4>
+                    <p>Gamifikasi merujuk kepada penerapan elemen dan mekanik reka bentuk permainan (seperti mata, lencana, papan pendahulu) dalam konteks bukan permainan untuk meningkatkan penglibatan dan motivasi. Manakala Pembelajaran Berasaskan Permainan (GBL) pula menggunakan permainan sebenar sebagai medium untuk mencapai objektif pembelajaran. Kedua-dua pendekatan ini memanfaatkan kecenderungan semula jadi manusia terhadap permainan untuk menjadikan proses pembelajaran lebih menarik.</p>
+                    <p>Platform seperti Kahoot! menggunakan elemen persaingan dan maklum balas segera untuk menukar kuiz formatif menjadi satu aktiviti yang menyeronokkan. Aplikasi pembelajaran bahasa seperti Duolingo pula menggunakan sistem ganjaran, mata, dan kemajuan tahap untuk mendorong pengguna belajar secara konsisten. Pendekatan ini terbukti berkesan dalam meningkatkan motivasi intrinsik dan ekstrinsik murid. Lebih daripada itu, GBL membolehkan pembelajaran adaptif, di mana tahap kesukaran permainan boleh disesuaikan secara automatik berdasarkan prestasi murid, memastikan mereka sentiasa berada dalam zon cabaran yang optimum.</p>
+                    <h4>3.4 Evolusi Konsep "Teknologi Pendidikan"</h4>
+                    <p>Pemahaman tentang peranan teknologi dalam pendidikan telah berevolusi secara dramatik. Pada peringkat awal, ia dilihat hanya sebagai "alat bantu audio-visual" seperti penggunaan projektor overhed (OHP). Namun, bidang ini telah matang menjadi satu disiplin akademik yang sofistikated. Definisi yang dibangunkan oleh pertubuhan terkemuka seperti Association for Educational Communications and Technology (AECT) mencerminkan evolusi ini. Definisi AECT pada tahun 1994 dan 2008 menekankan bahawa Teknologi Pendidikan (atau Teknologi Pembelajaran) adalah "teori dan amalan dalam mereka bentuk, membangun, mengguna, mengurus, dan menilai proses dan sumber untuk pembelajaran". Ini mengukuhkan satu idea penting: integrasi teknologi yang berkesan bukan sekadar tentang membeli gajet terkini. la adalah satu proses reka bentuk pengajaran yang disengajakan dan sistematik. Kunci kejayaan terletak pada hubungan sinergi antara teknologi dan pedagogi. Kesilapan yang sering berlaku ialah pendekatan "technology-push", di mana sekolah membeli peralatan dan kemudian bertanya, "Apa yang boleh kita buat dengan ini?". Pendekatan yang betul ialah "pedagogy-pull", di mana guru bermula dengan objektif pembelajaran yang jelas ("Saya mahu murid saya memahami cabaran hidup di zaman Kesultanan Melaka") dan kemudian bertanya, "Apakah teknologi (seperti VR atau AR) yang boleh membantu saya mencipta pengalaman pembelajaran yang paling berkesan untuk mencapai objektif ini?". Dalam model ini, teknologi menjadi hamba kepada pedagogi, bukan sebaliknya. Apabila pendekatan ini berjaya, ia akan mewujudkan satu gelung maklum balas positif: pengalaman pembelajaran yang menarik akan meningkatkan motivasi, yang membawa kepada penglibatan yang lebih mendalam, dan akhirnya menghasilkan pencapaian akademik yang lebih tinggi.</p>
+                    <h3>Bahagian 4: Model Pelaksanaan Hibrid: Mengintegrasikan Dunia Fizikal dan Digital</h3>
+                    <p>Menggabungkan pedagogi berpusatkan murid dengan teknologi pemangkin memerlukan satu model pelaksanaan yang praktikal dan fleksibel. Model hibrid, yang mengintegrasikan dunia pembelajaran fizikal dan digital secara strategik, menawarkan penyelesaian yang ampuh. Dua pendekatan utama dalam kategori ini ialah Pembelajaran Teradun (Blended Learning) dan Bilik Darjah Terbalik (Flipped Classroom).</p>
+                    <h4>4.1 Pembelajaran Teradun (Blended Learning)</h4>
+                    <p>Pembelajaran Teradun didefinisikan sebagai gabungan yang disengajakan antara pembelajaran bersemuka tradisional di dalam bilik darjah dengan aktiviti pembelajaran dalam talian (daring). Matlamatnya bukan sekadar mencampurkan kedua-dua mod, tetapi untuk mereka bentuk semula pengalaman pembelajaran secara fundamental agar lebih berpusatkan pelajar. Model ini memberikan fleksibiliti yang lebih besar, membolehkan murid mengakses bahan pembelajaran secara kendiri di luar kelas, mengikut kadar dan masa mereka sendiri, yang menyokong pembangunan kemahiran belajar terarah kendiri.</p>
+                    <h4>4.2 Bilik Darjah Terbalik (Flipped Classroom) sebagai Varian Pembelajaran Teradun</h4>
+                    <p>Bilik Darjah Terbalik adalah satu varian spesifik dan berkuasa bagi pembelajaran teradun. Model ini secara literal "menterbalikkan" struktur pembelajaran tradisional: aktiviti yang biasanya berlaku di dalam kelas (seperti syarahan oleh guru) dipindahkan ke luar kelas, selalunya melalui video pembelajaran pendek yang ditonton oleh murid di rumah. Manakala aktiviti yang biasanya dilakukan sebagai kerja rumah (seperti latihan dan penyelesaian masalah) dibawa masuk ke dalam bilik darjah untuk dikerjakan secara kolaboratif dengan bimbingan guru.</p>
+                    <p>Satu kajian kes yang dijalankan di sebuah universiti di Malaysia menunjukkan persepsi yang amat positif dalam kalangan pelajar terhadap model ini. Lebih 89% pelajar bersetuju bahawa kelas menjadi lebih interaktif dan komunikatif. Mereka menghargai peluang untuk berbincang dan berkolaborasi dengan rakan-rakan semasa waktu kelas. Menariknya, model ini juga memberi impak positif kepada pelajar yang pemalu dan pendiam, yang mungkin kurang selesa bersuara di dalam kelas tetapi lebih aktif berinteraksi melalui forum perbincangan dalam talian.</p>
+                    <h4>4.3 Faedah Utama dan Cabaran Pelaksanaan</h4>
+                    <p>Faedah utama model Bilik Darjah Terbalik terletak pada pengoptimuman masa bersemuka yang berharga. Apabila penyampaian maklumat asas telah dialihkan ke luar kelas, keseluruhan waktu kelas boleh ditumpukan kepada aktiviti pembelajaran aktif, perbincangan mendalam, kerja projek kolaboratif, dan bimbingan peribadi daripada guru kepada murid yang memerlukan. Ini secara langsung meningkatkan kemandirian belajar dan kepuasan murid.</p>
+                    <p>Namun, pelaksanaan model ini tidak terlepas daripada cabaran. la menuntut tahap kemandirian dan disiplin diri yang tinggi daripada murid untuk membuat persediaan sebelum kelas. Kajian di Malaysia mendapati ia boleh menjadi cabaran bagi pelajar yang mempunyai kekangan masa. Faktor-faktor lain seperti tahap sokongan ibu bapa, kualiti kemudahan dan infrastruktur (internet dan peranti) di rumah, serta kesediaan dan kemahiran teknologi guru juga merupakan antara penghalang yang perlu ditangani.</p>
+                    <p>Nilai sebenar model Bilik Darjah Terbalik bukanlah terletak pada teknologi video itu sendiri, tetapi pada transformasi masa bersemuka yang diakibatkannya. Dengan "membeli masa" daripada aktiviti syarahan yang pasif, ia secara paksa mencipta ruang dan peluang untuk pedagogi yang lebih berkesan seperti Pembelajaran Berasaskan Projek (PBL) untuk dilaksanakan di dalam kelas di bawah bimbingan langsung seorang guru. Oleh itu, Bilik Darjah Terbalik bukanlah satu model yang bersaing dengan PBL, tetapi ia adalah satu strategi pembolehan (enabling strategy) yang amat penting untuk menjayakan PBL dalam kekangan jadual waktu sekolah.</p>
+                    <table>
+                        <thead><tr><th>Dimensi Perbandingan</th><th>Model Tradisional</th><th>Pembelajaran Teradun (Blended)</th><th>Bilik Darjah Terbalik (Flipped)</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Peranan Guru</strong></td><td>Penyampai maklumat utama</td><td>Fasilitator, pereka bentuk pengalaman</td><td>Pembimbing, fasilitator perbincangan</td></tr>
+                            <tr><td><strong>Peranan Murid</strong></td><td>Penerima pasif</td><td>Peserta aktif, pelajar kendiri</td><td>Peserta aktif, kolaborator</td></tr>
+                            <tr><td><strong>Lokasi Pembelajaran</strong></td><td>Sepenuhnya dalam kelas</td><td>Campuran dalam dan luar kelas</td><td>Luar kelas (input), dalam kelas (aplikasi)</td></tr>
+                            <tr><td><strong>Fokus Aktiviti Kelas</strong></td><td>Syarahan, penyampaian kandungan</td><td>Gabungan syarahan dan aktiviti</td><td>Aplikasi, kolaborasi, penyelesaian masalah</td></tr>
+                            <tr><td><strong>Kelebihan Utama</strong></td><td>Struktur yang jelas, mudah diurus</td><td>Fleksibiliti, akses kendiri</td><td>Mengoptimumkan masa bersemuka, interaktif</td></tr>
+                            <tr><td><strong>Cabaran Utama</strong></td><td>Kurang penglibatan, pasif</td><td>Memerlukan kemandirian murid</td><td>Jurang digital, memerlukan persediaan murid</td></tr>
+                        </tbody>
+                    </table>
+                    <p>Walau bagaimanapun, pelaksanaan model hibrid ini juga mendedahkan satu isu kritikal berkaitan keadilan (equity). Model ini mengandaikan bahawa semua murid mempunyai akses yang sama kepada peranti, sambungan internet yang stabil, dan persekitaran belajar yang kondusif di rumah. Andaian ini tidak selalunya benar dan boleh memburukkan lagi jurang pencapaian antara murid dari latar belakang sosioekonomi yang berbeza. Ini menekankan kepentingan untuk menghubungkan strategi pedagogi dengan realiti "Jurang Digital" yang akan dibincangkan seterusnya, dan merangka pelan pelaksanaan yang fleksibel dan inklusif.</p>
+                    <h3>Bahagian 5: Realiti Pelaksanaan di Malaysia: Cabaran, Halangan, dan Faktor Kejayaan</h3>
+                    <p>Teori dan model yang ideal perlu diuji dengan realiti di lapangan. Pelaksanaan transformasi pembelajaran di Malaysia berhadapan dengan satu set cabaran dan peluang yang unik, yang dibentuk oleh faktor-faktor sosio-budaya, infrastruktur, dan manusia. Memahami landskap ini adalah kritikal untuk merangka strategi yang realistik dan berkesan.</p>
+                    <h4>5.1 Cabaran Dwi-Peringkat Jurang Digital</h4>
+                    <ul>
+                        <li><strong>Peringkat Pertama (Akses):</strong> Ini adalah jurang yang paling nyata, iaitu perbezaan dalam akses kepada infrastruktur fizikal. Jurang antara kawasan bandar dan luar bandar masih menjadi cabaran yang signifikan, di mana banyak kawasan pedalaman, terutamanya di Malaysia Timur, masih bergelut dengan ketiadaan atau kualiti sambungan internet yang tidak memuaskan. Walaupun inisiatif kerajaan seperti Pelan Jalinan Digital Negara (JENDELA) dan peruntukan belanjawan tahunan bertujuan untuk menangani masalah ini, realitinya banyak sekolah dan isi rumah masih ketinggalan.</li>
+                        <li><strong>Peringkat Kedua (Kemahiran & Penggunaan):</strong> Wawasan yang lebih mendalam menunjukkan bahawa jurang digital bukan sekadar isu akses kepada peranti dan internet, tetapi juga isu kemahiran dan penggunaan yang bermakna. Ramai generasi muda yang dianggap "celik digital" mungkin mahir dalam penggunaan media sosial, permainan dalam talian, atau hiburan, tetapi tidak semestinya mempunyai kemahiran untuk menggunakan teknologi bagi tujuan pembelajaran mendalam, penciptaan kandungan, atau pemikiran kritis. Terdapat jurang antara penggunaan teknologi untuk konsumsi dan penggunaan untuk produktiviti.</li>
+                    </ul>
+                    <h4>5.2 Faktor Manusia dan Budaya Sekolah</h4>
+                    <p>Kajian-kajian kes yang dijalankan di sekolah-sekolah Malaysia secara konsisten menonjolkan bahawa faktor bukan teknologi sering kali menjadi penentu utama kejayaan atau kegagalan integrasi teknologi.</p>
+                    <ul>
+                        <li><strong>Kepimpinan Sekolah:</strong> Visi yang jelas, sokongan yang tidak berbelah bahagi, dan kepimpinan instruksional yang aktif daripada pengetua dikenal pasti sebagai pemangkin yang paling signifikan dalam mempengaruhi kejayaan integrasi ICT di sekolah.</li>
+                        <li><strong>Kesediaan Guru:</strong> Walaupun terdapat banyak pelaburan, laporan menunjukkan tahap integrasi teknologi yang masih belum memuaskan di sesetengah kawasan, dengan anggaran 80% guru menggunakan ICT kurang daripada satu jam seminggu dalam satu laporan. Satu corak menarik yang muncul daripada kajian tempatan ialah guru yang lebih muda dan kurang berpengalaman cenderung menunjukkan tahap integrasi teknologi yang lebih tinggi berbanding rakan-rakan mereka yang lebih senior.</li>
+                        <li><strong>Budaya Kolaboratif:</strong> Faktor kejayaan utama yang dikenal pasti dalam kajian di sekolah transformasi (TS25) di Malaysia bukanlah teknologi itu sendiri, tetapi budaya kerja yang positif. Konsep seperti "prestasi dibantu" (assisted performance), di mana rakan sekerja saling membantu untuk mengatasi cabaran teknikal atau pedagogi, dan "perkongsian idea" menjadi enjin kepada perubahan. Ini menekankan kepentingan komuniti pembelajaran profesional (PLC) yang berfungsi.</li>
+                        <li><strong>Halangan Sistemik:</strong> Guru-guru sering melaporkan halangan yang berada di luar kawalan mereka, seperti kekangan masa akibat beban tugas pentadbiran, jadual waktu yang tidak fleksibel yang menyukarkan pelaksanaan PBL, dan peraturan sekolah yang lapuk.</li>
+                    </ul>
+                    <p>Analisis terhadap faktor-faktor ini mendedahkan bahawa kejayaan integrasi teknologi di Malaysia bukanlah satu usaha individu, tetapi satu fenomena ekosistem. la adalah hasil interaksi yang kompleks antara infrastruktur (disediakan oleh kerajaan dan penyedia perkhidmatan), kepimpinan (didorong oleh pentadbir), budaya (dibina bersama rakan sekerja), dan kemahiran (dibangunkan oleh guru). Oleh itu, strategi yang paling berkesan bagi seorang guru pakar bukanlah untuk menjadi seorang inovator solo, tetapi untuk menjadi seorang pemangkin ekosistem—seseorang yang membina sokongan dari atas (pentadbiran) dan dari sisi (rakan sekerja) untuk mewujudkan persekitaran yang kondusif untuk perubahan.</p>
+                    <h4>5.3 Keselamatan Siber dan Kesejahteraan Digital</h4>
+                    <p>Peningkatan penggunaan internet dalam pendidikan secara langsung membawa bersamanya risiko-risiko yang berkaitan. Isu seperti buli siber, penyebaran berita palsu, penipuan dalam talian (scam), dan ketagihan gajet menjadi kebimbangan yang semakin serius. Ini menjadikan pendidikan keselamatan digital bukan lagi satu subjek pilihan atau sampingan, tetapi satu komponen teras dalam kurikulum abad ke-21. Terdapat gesaan yang kuat daripada pelbagai pihak untuk memperkasakan pendidikan keselamatan digital secara menyeluruh, yang memerlukan kerjasama bersepadu antara kerajaan, badan bukan kerajaan (NGO), pihak sekolah, dan ibu bapa.</p>
+                    <h3>Bahagian 6: Merangka Strategi Masa Hadapan: Cadangan Komprehensif untuk Guru Pakar</h3>
+                    <p>Berdasarkan analisis komprehensif terhadap konteks murid, landasan pedagogi, potensi teknologi, dan realiti pelaksanaan di Malaysia, berikut adalah satu set strategi yang boleh diambil tindakan, direka khusus untuk seorang guru pakar yang berhasrat untuk memimpin transformasi pembelajaran.</p>
+                    <h4>6.1 Strategi Peringkat Bilik Darjah: Reka Bentuk Semula Pengajaran dan Pentaksiran</h4>
+                    <p>Perubahan bermula dari dalam. Guru pakar boleh menjadi contoh melalui amalan bilik darjah mereka sendiri.</p>
+                    <ul>
+                        <li><strong>Langkah 1: Audit dan Pilih (Start Small, Scale Smart).</strong> Elakkan daripada cuba merombak keseluruhan sukatan pelajaran serentak. Sebaliknya, pilih SATU unit pengajaran atau topik sedia ada untuk dijadikan projek rintis transformasi.</li>
+                        <li><strong>Langkah 2: Rangka Semula dengan PBL.</strong> Ubah hasil pembelajaran unit tersebut daripada berfokuskan pengetahuan ("Murid akan mengetahui tentang...") kepada berfokuskan kemahiran dan penciptaan ("Murid akan mencipta/menyelesaikan..."). Contohnya, objektif "Murid akan belajar tentang faktor-faktor pencemaran sungai" boleh diubah menjadi "Murid akan menghasilkan satu kempen kesedaran digital (video pendek atau poster interaktif) untuk komuniti setempat mengenai punca dan penyelesaian masalah pencemaran sungai di kawasan mereka."</li>
+                        <li><strong>Langkah 3: Integrasi Teknologi Berasaskan Pedagogi.</strong> Setelah objektif PBL ditetapkan, pilih teknologi yang paling sesuai untuk menyokong projek tersebut. Ini mungkin melibatkan penggunaan aplikasi penderiaan data untuk mengukur kualiti air, perisian reka bentuk grafik seperti Canva untuk poster, atau aplikasi penyuntingan video seperti CapCut. Pendekatan "pedagogy-pull" ini memastikan teknologi yang digunakan adalah relevan dan bermakna.</li>
+                        <li><strong>Langkah 4: Reka Bentuk Pentaksiran Autentik.</strong> Beralih daripada ujian aneka pilihan yang menguji hafalan kepada pentaksiran berasaskan prestasi. Bangunkan rubrik yang jelas untuk menilai kedua-dua produk akhir (kempen kesedaran) dan proses (kemahiran kolaborasi, pemikiran kritis, penyelidikan) yang ditunjukkan oleh murid sepanjang projek.</li>
+                    </ul>
+                    <h4>6.2 Strategi Peringkat Sekolah: Memimpin Pembangunan Profesional Lestari</h4>
+                    <p>Seorang guru pakar mempunyai peranan yang lebih besar daripada bilik darjah mereka sendiri. Mereka adalah pemimpin pemikiran dan agen perubahan bagi seluruh sekolah.</p>
+                    <ul>
+                        <li><strong>Menjadi Pemangkin Ekosistem.</strong> Daripada beroperasi sebagai "pulau kecemerlangan", matlamatnya adalah untuk menaikkan "aras air" bagi semua guru.</li>
+                        <li><strong>Memperjuangkan Model Mentor-Mentee Simbiotik.</strong> Wujudkan satu program pembangunan profesional dalaman yang memanfaatkan kontradiksi produktif antara guru berpengalaman dan guru baharu. Guru pakar (dengan kebijaksanaan pedagogi) boleh membimbing guru baharu tentang reka bentuk pengajaran, manakala guru baharu (dengan kefasihan digital) boleh mendedahkan alat dan platform baharu kepada guru senior. Ini mewujudkan satu hubungan simbiotik yang mempercepatkan pembangunan kapasiti seluruh sekolah.</li>
+                        <li><strong>Menganjurkan "Showcase & Share".</strong> Wujudkan platform tetap (contohnya, satu jam setiap bulan) di mana guru-guru boleh berkongsi amalan terbaik, kejayaan, dan juga kegagalan mereka dalam mengintegrasikan teknologi. Ini secara langsung membina budaya "perkongsian idea" dan "prestasi dibantu" yang dikenal pasti sebagai faktor kejayaan kritikal di sekolah-sekolah Malaysia.</li>
+                    </ul>
+                    <h4>6.3 Strategi Peringkat Komuniti: Advokasi dan Penglibatan Ibu Bapa</h4>
+                    <p>Transformasi tidak boleh berlaku dalam vakum. la memerlukan sokongan daripada komuniti yang lebih luas, terutamanya ibu bapa.</p>
+                    <ul>
+                        <li><strong>Mendidik Ibu Bapa.</strong> Anjurkan sesi atau bengkel untuk menerangkan model pembelajaran baharu seperti Bilik Darjah Terbalik atau PBL kepada ibu bapa. Apabila ibu bapa memahami "mengapa" di sebalik perubahan ini, mereka akan beralih daripada menjadi penghalang kepada menjadi penyokong.</li>
+                        <li><strong>Membina Jambatan Jurang Digital.</strong> Bekerjasama dengan Persatuan Ibu Bapa dan Guru (PIBG) untuk mengenal pasti murid yang menghadapi cabaran akses di rumah. Cari penyelesaian kreatif dan praktikal, seperti membuka makmal komputer sekolah untuk kegunaan selepas waktu persekolahan atau memohon sumbangan peranti terpakai untuk diagihkan.</li>
+                        <li><strong>Advokasi kepada Pentadbiran.</strong> Gunakan data dan bukti (termasuk dari laporan ini) untuk membentangkan kes yang kukuh kepada pihak pentadbir sekolah mengenai keperluan untuk pelaburan infrastruktur yang lebih baik dan perubahan dasar yang menyokong inovasi, seperti jadual waktu yang lebih fleksibel untuk menampung projek PBL.</li>
+                    </ul>
+                    <h4>6.4 Strategi Teras: Penerapan Etika dan Kewarganegaraan Digital</h4>
+                    <p>Ini bukanlah satu strategi yang berasingan, tetapi satu benang merah yang perlu ditenun merentasi semua aspek pengajaran dan pembelajaran.</p>
+                    <ul>
+                        <li><strong>Integrasi Merentas Kurikulum.</strong> Jadikan pendidikan kewarganegaraan digital sebahagian daripada setiap mata pelajaran. Ajar murid untuk menilai kredibiliti sumber dalam talian semasa pelajaran Sejarah; bincangkan etika komunikasi digital dalam e-mel dan forum semasa pelajaran Bahasa; terangkan konsep privasi dan perlindungan data semasa pelajaran Reka Bentuk dan Teknologi.</li>
+                        <li><strong>Memperkasakan Murid sebagai Pencipta Beretika.</strong> Matlamat akhir transformasi ini adalah untuk mengubah murid daripada menjadi pengguna teknologi yang pasif kepada pencipta yang aktif, kritis, dan bertanggungjawab. Apabila mereka belajar untuk membina laman web, menghasilkan video, atau mereka bentuk aplikasi, mereka juga mesti belajar tentang implikasi etika ciptaan mereka. Ini adalah kemuncak kepada perubahan cara murid belajar—satu anjakan yang melengkapkan mereka bukan sahaja dengan pengetahuan akademik, tetapi juga dengan kemahiran dan nilai untuk berkembang maju dalam dunia digital yang kompleks.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="rujukan" class="tab-pane hidden">
+            <h2 class="text-3xl font-bold text-center mb-2 text-emerald-600">Rujukan (Works Cited)</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">Senarai sumber akademik dan laporan yang digunakan dalam penyediaan infografik ini.</p>
+            <div class="space-y-6 max-w-4xl mx-auto">
+                <div class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
+                    <p class="text-sm flex-1">1. Kemp, S. (2024). Digital 2024: Malaysia. <i>DataReportal.</i></p>
+                    <a href="https://datareportal.com/reports/digital-2024-malaysia" target="_blank" class="ml-4 shrink-0 bg-emerald-500 text-white font-bold py-2 px-4 rounded hover:bg-emerald-600 transition">Lawati</a>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
+                    <p class="text-sm flex-1">2. Laporan Kajian Pengguna Internet oleh Suruhanjaya Komunikasi dan Multimedia Malaysia (SKMM).</p>
+                    <a href="https://www.mcmc.gov.my/en/resources/statistics/internet-users-survey" target="_blank" class="ml-4 shrink-0 bg-emerald-500 text-white font-bold py-2 px-4 rounded hover:bg-emerald-600 transition">Lawati</a>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
+                    <p class="text-sm flex-1">3. Naik, G. & Girase, S. (2021). Impact of Project-Based Learning on Critical Thinking Skills. <i>Journal of Engineering Education Transformations.</i></p>
+                    <a href="https://journaleet.org/index.php/jeet/article/view/1636" target="_blank" class="ml-4 shrink-0 bg-emerald-500 text-white font-bold py-2 px-4 rounded hover:bg-emerald-600 transition">Lawati</a>
+                </div>
+                 <div class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
+                    <p class="text-sm flex-1">4. Apriadi, H., & Sihotang, H. (2023). The Role of Artificial Intelligence in Education. <i>Journal of Information Systems and Technology.</i></p>
+                    <a href="https://jist.publikasiindonesia.id/index.php/jist/article/view/640" target="_blank" class="ml-4 shrink-0 bg-emerald-500 text-white font-bold py-2 px-4 rounded hover:bg-emerald-600 transition">Lawati</a>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
+                    <p class="text-sm flex-1">5. Ariffin, A., et al. (2018). The Use of Flipped Classroom to Enhance Malaysian Students’ Learning Enjoyment. <i>Journal of Personalized Learning.</i></p>
+                    <a href="https://myjms.mohe.gov.my/index.php/jopel/article/view/5253" target="_blank" class="ml-4 shrink-0 bg-emerald-500 text-white font-bold py-2 px-4 rounded hover:bg-emerald-600 transition">Lawati</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-8">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>Infografik ini dihasilkan berdasarkan "Ubah."</p>
+            <p class="text-sm text-gray-400 mt-2">Dibangunkan dengan Chart.js dan Tailwind CSS. Tiada SVG atau Mermaid JS digunakan.</p>
+            <p class="text-sm text-gray-500 mt-4">© 2025 Tc. Bakrizal Fahmi bin Abu Bakar. Hak Cipta Terpelihara.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const panes = document.querySelectorAll('.tab-pane');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const navLinks = document.getElementById('nav-links');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('hidden');
+                navLinks.classList.toggle('absolute');
+                navLinks.classList.toggle('bg-white');
+                navLinks.classList.toggle('w-full');
+                navLinks.classList.toggle('left-0');
+                navLinks.classList.toggle('shadow-lg');
+            });
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetId = tab.dataset.tab;
+
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    panes.forEach(pane => {
+                        if (pane.id === targetId) {
+                            pane.classList.remove('hidden');
+                        } else {
+                            pane.classList.add('hidden');
+                        }
+                    });
+
+                    if (window.innerWidth < 768) {
+                        navLinks.classList.add('hidden');
+                        navLinks.classList.remove('absolute', 'bg-white', 'w-full', 'left-0', 'shadow-lg');
+                    }
+                });
+            });
+
+            const chartTooltipCallback = {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) { return label.join(' '); } 
+                    else { return label; }
+                }
+            };
+
+            function wrapLabel(str, maxLen) {
+                if (str.length <= maxLen) { return str; }
+                const words = str.split(' ');
+                let currentLine = '';
+                const lines = [];
+                words.forEach(word => {
+                    if ((currentLine + ' ' + word).trim().length > maxLen && currentLine !== '') {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                });
+                if (currentLine !== '') { lines.push(currentLine); }
+                return lines;
+            }
+
+            const pblImpactData = {
+                labels: [
+                    wrapLabel('Penyelesaian Masalah Dunia Sebenar', 16),
+                    wrapLabel('Kerjasama Dalam Kumpulan', 16),
+                    wrapLabel('Kemahiran Komunikasi', 16)
+                ],
+                datasets: [{
+                    label: '% Peningkatan Kemahiran',
+                    data: [78, 56, 48],
+                    backgroundColor: ['rgba(16, 185, 129, 0.7)', 'rgba(59, 130, 246, 0.7)', 'rgba(239, 68, 68, 0.7)'],
+                    borderColor: ['rgba(16, 185, 129, 1)', 'rgba(59, 130, 246, 1)', 'rgba(239, 68, 68, 1)'],
+                    borderWidth: 1
+                }]
+            };
+
+            const pblImpactChartCtx = document.getElementById('pblImpactChart').getContext('2d');
+            new Chart(pblImpactChartCtx, {
+                type: 'bar', data: pblImpactData,
+                options: {
+                    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { callbacks: chartTooltipCallback } },
+                    scales: { x: { beginAtZero: true, max: 100, ticks: { callback: function(value) { return value + "%" } } }, y: { ticks: { font: { size: 10 } } } }
+                }
+            });
+
+            const flippedClassroomData = {
+                labels: ['Lebih Interaktif & Komunikatif', 'Lain-lain'],
+                datasets: [{
+                    data: [89, 11],
+                    backgroundColor: ['rgba(16, 185, 129, 0.7)', 'rgba(209, 213, 219, 0.7)'],
+                    borderColor: ['rgba(16, 185, 129, 1)', 'rgba(209, 213, 219, 1)'],
+                    borderWidth: 1
+                }]
+            };
+
+            const flippedClassroomChartCtx = document.getElementById('flippedClassroomPerceptionChart').getContext('2d');
+            new Chart(flippedClassroomChartCtx, {
+                type: 'doughnut', data: flippedClassroomData,
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: { callbacks: { label: function(context) { let label = context.label || ''; if (label) { label += ': '; } if (context.parsed !== null) { label += context.parsed + '%'; } return label; } } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
